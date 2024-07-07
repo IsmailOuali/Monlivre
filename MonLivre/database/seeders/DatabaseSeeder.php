@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
 
    
         Author::factory()->count(1)->create();
-        Book::factory(100)->create();
+        Book::factory(30)->create();
     }
 }

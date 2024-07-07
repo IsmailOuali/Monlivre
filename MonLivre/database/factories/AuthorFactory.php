@@ -17,7 +17,7 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'id'=> 3,
+            'id' => 3,
             'name'=> 'Shakespear',
         ];
     }

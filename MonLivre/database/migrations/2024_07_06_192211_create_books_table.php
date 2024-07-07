@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->date('date');
             $table->foreignId('author_id')->constrained('authors');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
