@@ -10,10 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { 
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->date('date');
+            $table->foreignId('author_id')->constrained('authors');
             $table->timestamps();
         });
     }
