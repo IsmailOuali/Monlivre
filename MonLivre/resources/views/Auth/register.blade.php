@@ -28,7 +28,8 @@
             <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         </div>
         <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-            <form class="bg-white">
+            <form class="bg-white" action="{{ route('register') }}" method="POST">
+                @csrf
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
                 <p class="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -39,6 +40,9 @@
                     </svg>
                     <input class="pl-2 outline-none border-none" type="text" name="name" id="name"
                         placeholder="Username" />
+                    @error('name')
+                        <span>{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
@@ -48,6 +52,9 @@
                     </svg>
                     <input class="pl-2 outline-none border-none" type="text" name="email" id="email"
                         placeholder="Email Address" />
+                    @error('email')
+                        <span>{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
@@ -58,9 +65,12 @@
                     </svg>
                     <input class="pl-2 outline-none border-none" type="password" name="password" id="password"
                         placeholder="Password" />
+                    @error('password')
+                        <span>{{ $message }}</span>
+                    @enderror
                 </div>
-                <button type="submit"
-                    class="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
+                <button type="submit" id="submitBtn"
+                    class="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</button>
                 <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account ?</span>
             </form>
         </div>

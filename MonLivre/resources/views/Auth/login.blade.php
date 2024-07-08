@@ -27,7 +27,9 @@
                 <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
             </div>
             <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-                <form class="bg-white">
+
+                <form class="bg-white" action="{{ route('login') }}" method="POST">
+                @csrf
                     <h1 class="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
                     <p class="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
                     <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -62,7 +64,7 @@
                 const submitBtn = document.getElementById('submitBtn');
     
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                const passwordRegex = /^(?=.*\(?=.*[A-Za-z])d)[A-Za-z\d]{8,}$/;
     
                 submitBtn.addEventListener('click', (e) => {
                     e.preventDefault();
