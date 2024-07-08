@@ -15,10 +15,14 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $data = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($data)) {
-            return redirect()->intended('home');
+        if (Auth::guard('admin')->attempt($credentials)) {
+            return redirect()->intended('dashboard');
+        }
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/home');
         }
 
         return redirect()->back()->withErrors([
@@ -29,7 +33,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+
         return redirect()->route('login');
     }
 }
-

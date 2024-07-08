@@ -86,6 +86,9 @@
                     if (valid) {
                         alert('Form submitted successfully!');
                     }
+                    else if(!valid){
+                        alert('Wrong password or email');
+                    }
                 });
             });
         </script>
