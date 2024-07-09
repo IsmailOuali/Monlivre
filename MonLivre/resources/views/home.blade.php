@@ -7,6 +7,38 @@
     <title>Tailwind CSS Demo</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+<style>
+    .card:hover::after {
+        bottom: 0;
+        opacity: 1;
+    }
+
+    .card:active {
+        transform: scale(0.98);
+    }
+
+    .card:active::after {
+        content: "Added !";
+        height: 50px;
+    }
+
+    .card::after {
+        content: "Emprunter";
+        padding-top: 1.25em;
+        padding-left: 1.25em;
+        position: absolute;
+        left: 0;
+        bottom: -60px;
+        background: #00AC7C;
+        color: #fff;
+        height: 2.5em;
+        width: 90%;
+        transition: all 80ms;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0;
+    }
+</style>
 
 <body>
     <nav class="bg-gray-200 p-4">
@@ -31,14 +63,36 @@
                 <form action="{{ route('logout') }}" method="POST" class="ml-auto">
                     @csrf
                     @method('DELETE')
-                    <button class="bg-red-500 text-white font-bold py-2 px-4 rounded" type="submit">Logout</button>
+                    <button class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        type="submit">Logout</button>
                 </form>
             </div>
         </div>
     </nav>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold"> Welcome, {{ Auth::user()->name }}</h1>
+        <h1 class="text-3xl font-bold">Welcome, {{ Auth::user()->name }}</h1>
     </div>
+    <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach ($books as $book)
+            <div class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
+                <span class="text-4xl">{{ $book->title }}</span>
+                <span class="absolute left-2 bottom-10 font-sans text-sm font-normal text-black">{{ $book->id }}</span>
+                <span class="absolute left-2 bottom-4 font-impact text-sm text-black">${{ $book->price }}</span>
+                <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
+                    By: {{ $book->author->name ?? 'Unknown Author' }}
+                </span>
+                <span class="card-after absolute left-0 bottom-[-20px] bg-[#00AC7C] text-white h-10 w-4/5 transition-all duration-80 font-semibold uppercase opacity-0 group-hover:bottom-0 group-hover:opacity-100 pt-2 pl-2">
+                    Loan
+                </span>
+                <span class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
+                    {{ $book->available ? '✔' : '✖' }}
+                </span>
+            </div>
+        @endforeach
+    </div>
+
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </body>
 

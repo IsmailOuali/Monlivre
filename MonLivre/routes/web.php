@@ -37,4 +37,6 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::post('books/store', [BookController::class, 'store'])->name('admin.books.store');
         Route::delete('books/{id}', [BookController::class, 'destroy'])->name('admin.books.destroy');
     });
-    });
+});
+
+Route::get('home', [HomeController::class , 'home'])->name('home');

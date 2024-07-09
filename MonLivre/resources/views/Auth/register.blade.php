@@ -71,7 +71,7 @@
                 </div>
                 <button type="submit" id="submitBtn"
                     class="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</button>
-                <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account ?</span>
+                <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer"><a href="{{ route('login') }}">Login?</a></span>
             </form>
         </div>
     </div>
