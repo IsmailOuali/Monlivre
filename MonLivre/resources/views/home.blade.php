@@ -74,20 +74,26 @@
     </div>
     <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($books as $book)
-            <div class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
-                <span class="text-4xl">{{ $book->title }}</span>
-                <span class="absolute left-2 bottom-10 font-sans text-sm font-normal text-black">{{ $book->id }}</span>
-                <span class="absolute left-2 bottom-4 font-impact text-sm text-black">${{ $book->price }}</span>
-                <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
-                    By: {{ $book->author->name ?? 'Unknown Author' }}
-                </span>
-                <span class="card-after absolute left-0 bottom-[-20px] bg-[#00AC7C] text-white h-10 w-4/5 transition-all duration-80 font-semibold uppercase opacity-0 group-hover:bottom-0 group-hover:opacity-100 pt-2 pl-2">
-                    Loan
-                </span>
-                <span class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
-                    {{ $book->available ? '✔' : '✖' }}
-                </span>
-            </div>
+            <form action="{{ route('addLoan', ['bookId' => $book->id]) }}" method="POST">
+                @csrf
+
+                <button type="submit" class="w-5/6 h-14 mb-24 bg-black">
+                <div
+                    class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
+                    <span class="text-2xl">{{ $book->name }}</span>
+                    <span class="absolute left-2 bottom-4 font-impact text-sm text-black">{{ $book->price }}</span>
+                    <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
+                        By: {{ $book->author->name ?? 'Unknown Author' }}
+                    </span>
+
+                    <span
+                        class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
+                        {{ $book->status ? '✔' : '✖' }}
+                    </span>
+
+                    </button>
+                </div>
+            </form>
         @endforeach
     </div>
 

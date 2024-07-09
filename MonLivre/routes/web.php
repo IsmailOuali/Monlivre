@@ -22,6 +22,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'index']);
     Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/add-loan/{bookId}', [HomeController::class, 'addLoan'])->name('addLoan');
+
 });
 
 Route::middleware([AdminMiddleware::class])->group(function () {
@@ -40,3 +42,4 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 });
 
 Route::get('home', [HomeController::class , 'home'])->name('home');
+
