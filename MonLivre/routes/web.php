@@ -21,6 +21,7 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'home'])->name('home');
     Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/add-loan/{bookId}', [HomeController::class, 'addLoan'])->name('addLoan');
 
@@ -28,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::middleware([AdminMiddleware::class])->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('dashboard', function (){
+        Route::get('/dashboard', function (){
             return view('/Admin/dashboard'); 
         })->name('admin.dashboard');
         Route::get('authors', [AuthorController::class, 'index'])->name('admin.authors.index');

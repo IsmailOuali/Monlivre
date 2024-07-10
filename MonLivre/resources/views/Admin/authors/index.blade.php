@@ -28,7 +28,7 @@
                     </div>
                 </form>
 
-                <table class="table">
+                <table class="table w-1/2">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -48,7 +48,7 @@
                                     <form action="{{ route('admin.authors.destroy', $author->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn bg-red-700 underline">Delete</button>
                                     </form>
                                 </td>
                             </tr>

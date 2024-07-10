@@ -16,14 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->date('date');
             $table->foreignId('author_id')->constrained('authors');
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('books');

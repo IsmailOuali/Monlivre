@@ -72,30 +72,33 @@
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-bold">Welcome, {{ Auth::user()->name }}</h1>
     </div>
-    <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach ($books as $book)
+    <form action="{{ route('home') }}" method="GET" class="mb-4">
+        <input type="text" name="search" placeholder="Search by book or author"
+            class="p-2 border border-gray-300 rounded">
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded">Search</button>
+    </form>
+    @foreach ($books as $book)
+        <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <form action="{{ route('addLoan', ['bookId' => $book->id]) }}" method="POST">
                 @csrf
 
                 <button type="submit" class="w-5/6 h-14 mb-24 bg-black">
-                <div
-                    class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
-                    <span class="text-2xl">{{ $book->name }}</span>
-                    <span class="absolute left-2 bottom-4 font-impact text-sm text-black">{{ $book->price }}</span>
-                    <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
-                        By: {{ $book->author->name ?? 'Unknown Author' }}
-                    </span>
+                    <div
+                        class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
+                        <span class="text-2xl">{{ $book->name }}</span>
+                        <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
+                            By: {{ $book->author->name ?? 'Unknown Author' }}
+                        </span>
 
-                    <span
-                        class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
-                        {{ $book->status ? '✔' : '✖' }}
-                    </span>
+                        <span
+                            class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
+                        </span>
+                    </div>
 
-                    </button>
-                </div>
+                </button>
             </form>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
 
     </div>
 

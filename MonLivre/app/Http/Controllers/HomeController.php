@@ -4,6 +4,7 @@ use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
@@ -12,9 +13,22 @@ class HomeController extends Controller
     return view('home');
   }
   
-  function home()
+  function home(Request $request)
   {
-    $books = Book::all();
+
+    $query = $request->input('search');
+
+        if ($query) {
+            $books = DB::select(
+                'SELECT books.* FROM books
+                  JOIN authors ON books.author_id = authors.id
+                 WHERE books.name LIKE ? OR authors.name LIKE ?',
+                ["%{$query}%", "%{$query}%"]
+            );
+        }
+        else {
+          $books = Book::all();
+        }
     $authors = Author::all();
 
     return view('home', compact('books', 'authors'));

@@ -15,18 +15,17 @@
                                 <label for="aName" class="mb-3 block text-base font-medium text-[#07074D]">
                                     Nom de livre
                                 </label>
-                                <input type="text" name="name" id="aName" placeholder="Nom d'auteur"
+                                <input type="text" name="name" id="aName" placeholder="Nom de livre"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div class="mb-5">
                                 <label for="aName" class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Nom de livre
+                                    Nom d'auteur
                                 </label>
-                                <select  name="author_id" id="aName" placeholder="Nom d'auteur"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" > 
+                                <select name="author_id" id="aName" placeholder="Nom d'auteur"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                     @foreach ($authors as $author)
-                                    <option value="{{$author->id}}">{{$author->name}}</option>
-                                        
+                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -34,7 +33,7 @@
                                 <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
                                     Nom de livre
                                 </label>
-                                <input type="date" name="date" id="date" 
+                                <input type="date" name="date" id="date"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                         </div>
@@ -47,7 +46,7 @@
                     </div>
                 </form>
 
-                <table class="table">
+                <table class="table w-1/2">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -57,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         @foreach ($books as $book)
                             <tr>
                                 <td>{{ $book->id }}</td>
@@ -67,7 +66,7 @@
                                     <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-danger text-red-700 underline">Delete</button>
                                     </form>
                                 </td>
                             </tr>
