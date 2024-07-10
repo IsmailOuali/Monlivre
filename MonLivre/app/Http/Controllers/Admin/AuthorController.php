@@ -28,7 +28,7 @@ class AuthorController extends Controller
             'name' => $request->name,   
         ]);
 
-        return redirect()->route('admin.authors')
+        return redirect()->route('admin.authors.index')
             ->with('success', 'Author created successfully.');
     }
     public function destroy($id)

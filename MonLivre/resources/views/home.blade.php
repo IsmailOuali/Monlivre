@@ -18,7 +18,6 @@
     }
 
     .card:active::after {
-        content: "Added !";
         height: 50px;
     }
 
@@ -41,9 +40,9 @@
 </style>
 
 <body>
-    <nav class="bg-gray-200 p-4">
+    <nav class="bg-gray-200 p-4 rounded-lg	">
         <div class="container mx-auto flex justify-between items-center">
-            <a class="text-xl font-bold" href="#">Navbar</a>
+            <a class="text-xl font-bold" href="/">MonLivre</a>
             <div class="block lg:hidden">
                 <button class="text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -72,35 +71,33 @@
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-bold">Welcome, {{ Auth::user()->name }}</h1>
     </div>
-    <form action="{{ route('home') }}" method="GET" class="mb-4">
+    <form action="{{ route('home') }}" method="GET" class="mb-4 flex justify-center items-center gap-4">
         <input type="text" name="search" placeholder="Search by book or author"
-            class="p-2 border border-gray-300 rounded">
+            class="p-4 border border-gray-300 rounded">
         <button type="submit" class="bg-blue-500 text-white p-2 rounded">Search</button>
     </form>
-    @foreach ($books as $book)
-        <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <form action="{{ route('addLoan', ['bookId' => $book->id]) }}" method="POST">
-                @csrf
-
-                <button type="submit" class="w-5/6 h-14 mb-24 bg-black">
-                    <div
-                        class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
-                        <span class="text-2xl">{{ $book->name }}</span>
-                        <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
-                            By: {{ $book->author->name ?? 'Unknown Author' }}
-                        </span>
-
-                        <span
-                            class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
-                        </span>
-                    </div>
-
-                </button>
-            </form>
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @foreach ($books as $book)
+                <div
+                    class="card relative w-full h-auto shadow-lg cursor-pointer transition-all duration-120 flex flex-col items-center justify-center bg-white p-4 group">
+                    <form action="{{ route('addLoan', ['bookId' => $book->id]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full bg-none">
+                            <span class="text-2xl">{{ $book->name }}</span>
+                            <span class="absolute left-2 top-2 font-sans text-sm font-normal text-gray-700">
+                                By: {{ $book->author->name ?? 'Unknown Author' }}
+                            </span>
+                            <span
+                                class="absolute top-2 right-2 {{ $book->status ? 'bg-green-500' : 'bg-red-500' }} text-white h-6 w-6 flex items-center justify-center rounded-full">
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            @endforeach
         </div>
-    @endforeach
-
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </body>

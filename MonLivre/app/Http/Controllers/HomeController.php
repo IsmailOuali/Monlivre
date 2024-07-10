@@ -15,23 +15,15 @@ class HomeController extends Controller
   
   function home(Request $request)
   {
+    $keyWord = $request->input('search');
+    $books = Book::where('name', 'like', "%{$keyWord}%")
+                 ->orWhereHas('author', function ($query) use ($keyWord) {
+                     $query->where('name', 'like', "%{$keyWord}%");
+                 })
+                 ->with('author')
+                 ->get();
 
-    $query = $request->input('search');
-
-        if ($query) {
-            $books = DB::select(
-                'SELECT books.* FROM books
-                  JOIN authors ON books.author_id = authors.id
-                 WHERE books.name LIKE ? OR authors.name LIKE ?',
-                ["%{$query}%", "%{$query}%"]
-            );
-        }
-        else {
-          $books = Book::all();
-        }
-    $authors = Author::all();
-
-    return view('home', compact('books', 'authors'));
+    return view('home', compact('books'));
   }
 
   public function addLoan($bookId)
